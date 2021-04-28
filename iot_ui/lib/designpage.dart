@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:clay_containers/clay_containers.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'claybox.dart';
 
 Color primarycolor = Color(0xFF26282B);
 Color activecolor1 = Color(0xFF26282B);
@@ -15,6 +15,7 @@ class Designpage extends StatefulWidget {
 class _DesignpageState extends State<Designpage> {
   @override
   Widget build(BuildContext context) {
+    double _value = 0;
     return Scaffold(
       backgroundColor: lightcolor,
       body: SafeArea(
@@ -27,8 +28,8 @@ class _DesignpageState extends State<Designpage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ClayBox(
-                    hight: 50,
-                    width: 50,
+                    hight: 60,
+                    width: 60,
                     myrad: 20,
                     myicon: Icon(
                       Icons.lightbulb_outline,
@@ -43,8 +44,8 @@ class _DesignpageState extends State<Designpage> {
                         color: Colors.teal),
                   ),
                   ClayBox(
-                    hight: 50,
-                    width: 50,
+                    hight: 60,
+                    width: 60,
                     myrad: 20,
                     myicon: Icon(
                       Icons.lightbulb,
@@ -55,7 +56,6 @@ class _DesignpageState extends State<Designpage> {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(16),
               child: ClayBox(
                 hight: 90,
                 myrad: 20,
@@ -72,32 +72,34 @@ class _DesignpageState extends State<Designpage> {
               width: 200,
               myrad: 200,
               myicon: SleekCircularSlider(
-                onChange: null,
+                onChange: (double value) {},
               ),
-            )
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              'INVERTER LEVEL',
+              style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  color: Colors.teal,
+                  fontSize: 20),
+            ),
+            Slider(
+                value: _value,
+                min: 0.0,
+                max: 1.0,
+                divisions: 5,
+                label: _value.toString(),
+                activeColor: Colors.teal,
+                inactiveColor: Colors.white,
+                onChanged: (myvalue) {
+                  setState(() {
+                    _value = myvalue;
+                  });
+                })
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ClayBox extends StatelessWidget {
-  final Widget myicon;
-  final int hight;
-  final double width;
-  final double myrad;
-  ClayBox({this.myicon, this.hight, this.width, this.myrad});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: ClayContainer(
-        height: hight.toDouble(),
-        width: width,
-        borderRadius: myrad,
-        child: Padding(padding: EdgeInsets.all(10), child: myicon),
       ),
     );
   }
